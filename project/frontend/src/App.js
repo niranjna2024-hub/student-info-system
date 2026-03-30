@@ -6,6 +6,7 @@ function App() {
   const [loginData, setLoginData] = useState({ email: "", password: "" });
 
   const [students, setStudents] = useState([]);
+
   const [form, setForm] = useState({
     name: "",
     roll: "",
@@ -15,11 +16,15 @@ function App() {
 
   const [editId, setEditId] = useState(null);
 
+  // YOUR RENDER BACKEND URL
+  const API_URL = "https://student-info-system-4d6t.onrender.com/api/students";
+
   useEffect(() => {
     if (isLoggedIn) {
-      fetch("https://student-info-system-4d6t.onrender.com/api/students")
+      fetch(API_URL)
         .then((res) => res.json())
-        .then((data) => setStudents(data));
+        .then((data) => setStudents(data))
+        .catch((err) => console.error(err));
     }
   }, [isLoggedIn]);
 
@@ -41,23 +46,26 @@ function App() {
     }
 
     if (editId) {
-      const res = await fetch(
-        `http://localhost:5000/api/students/${editId}`,
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(form),
-        }
-      );
+      // UPDATE student
+      const res = await fetch(`${API_URL}/${editId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
       const data = await res.json();
+
       setStudents(students.map((s) => (s._id === editId ? data : s)));
       setEditId(null);
+
     } else {
-      const res = await fetch("http://localhost:5000/api/students", {
+      // ADD student
+      const res = await fetch(API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
+
       const data = await res.json();
       setStudents([...students, data]);
     }
@@ -66,9 +74,10 @@ function App() {
   };
 
   const deleteStudent = async (id) => {
-    await fetch(`http://localhost:5000/api/students/${id}`, {
+    await fetch(`${API_URL}/${id}`, {
       method: "DELETE",
     });
+
     setStudents(students.filter((s) => s._id !== id));
   };
 
@@ -83,6 +92,7 @@ function App() {
         <h1 className="main-title">Student System</h1>
         <div className="card">
           <h2>Login</h2>
+
           <form onSubmit={loginHandler}>
             <input
               type="email"
@@ -100,6 +110,7 @@ function App() {
                 setLoginData({ ...loginData, password: e.target.value })
               }
             />
+
             <button type="submit">Login</button>
           </form>
         </div>
@@ -107,35 +118,39 @@ function App() {
     );
   }
 
+  // MAIN PAGE AFTER LOGIN
   return (
     <div className="container">
       <h1 className="main-title">Student Information System</h1>
 
       <div className="card">
         <h2>{editId ? "Edit Student" : "Add Student"}</h2>
+
         <form onSubmit={submitHandler}>
           <input
             placeholder="Name"
             value={form.name}
             onChange={(e) => setForm({ ...form, name: e.target.value })}
           />
+
           <input
             placeholder="Roll"
             value={form.roll}
             onChange={(e) => setForm({ ...form, roll: e.target.value })}
           />
+
           <input
             placeholder="Email"
             value={form.email}
             onChange={(e) => setForm({ ...form, email: e.target.value })}
           />
+
           <input
             placeholder="Department"
             value={form.department}
-            onChange={(e) =>
-              setForm({ ...form, department: e.target.value })
-            }
+            onChange={(e) => setForm({ ...form, department: e.target.value })}
           />
+
           <button type="submit">
             {editId ? "Update" : "Add Student"}
           </button>
@@ -144,6 +159,7 @@ function App() {
 
       <div className="card">
         <h2>Student List</h2>
+
         <table>
           <thead>
             <tr>
@@ -154,6 +170,7 @@ function App() {
               <th>Actions</th>
             </tr>
           </thead>
+
           <tbody>
             {students.map((s) => (
               <tr key={s._id}>
@@ -161,15 +178,15 @@ function App() {
                 <td>{s.roll}</td>
                 <td>{s.email}</td>
                 <td>{s.department}</td>
+
                 <td>
                   <button onClick={() => editStudent(s)}>Edit</button>
-                  <button onClick={() => deleteStudent(s._id)}>
-                    Delete
-                  </button>
+                  <button onClick={() => deleteStudent(s._id)}>Delete</button>
                 </td>
               </tr>
             ))}
           </tbody>
+
         </table>
       </div>
     </div>
