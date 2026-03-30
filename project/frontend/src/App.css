@@ -1,0 +1,189 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Background */
+body {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Main container card */
+.container {
+  background: #ffffff;
+  width: 90%;
+  max-width: 800px;
+  padding: 50px;
+  border-radius: 20px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+  min-height: 85vh;
+  transition: 0.3s ease;
+}
+
+.container:hover {
+  transform: translateY(-5px);
+}
+
+/* Heading */
+h1 {
+  text-align: center;
+  font-size: 34px;
+  font-weight: 700;
+  color: #3f3d56;
+}
+
+h1::after {
+  content: "";
+  display: block;
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  margin: 16px auto 40px;
+  border-radius: 2px;
+}
+
+/* Sub headings */
+h2 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  color: #444;
+}
+
+/* Form */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+/* Label + input wrapper */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Labels */
+label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #555;
+}
+
+/* Inputs */
+input {
+  padding: 16px 18px;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+  transition: all 0.2s ease;
+}
+
+input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.25);
+}
+
+/* Buttons */
+button {
+  margin-top: 20px;
+  padding: 16px;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  opacity: 0.9;
+  transform: scale(1.05);
+}
+
+/* Table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 30px;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+/* Table header */
+thead {
+  background: #667eea;
+  color: white;
+}
+
+th, td {
+  padding: 16px;
+  text-align: center;
+  font-size: 14px;
+}
+
+/* Table rows */
+tbody tr {
+  background: #f9f9f9;
+  transition: 0.2s;
+}
+
+tbody tr:nth-child(even) {
+  background: #f1f1f1;
+}
+
+tbody tr:hover {
+  background: #e8ebff;
+}
+
+/* Action buttons */
+.action-btn {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  font-size: 13px;
+  cursor: pointer;
+  color: white;
+}
+
+.edit {
+  background: #4caf50;
+  margin-right: 6px;
+}
+
+.edit:hover {
+  background: #43a047;
+}
+
+.delete {
+  background: #f44336;
+}
+
+.delete:hover {
+  background: #d32f2f;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .container {
+    padding: 25px;
+  }
+
+  th, td {
+    font-size: 12px;
+    padding: 10px;
+  }
+}
