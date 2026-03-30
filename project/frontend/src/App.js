@@ -17,7 +17,7 @@ function App() {
 
   useEffect(() => {
     if (isLoggedIn) {
-      fetch("http://localhost:5000/api/students")
+      fetch("https://student-info-system-4d6t.onrender.com/api/students")
         .then((res) => res.json())
         .then((data) => setStudents(data));
     }
