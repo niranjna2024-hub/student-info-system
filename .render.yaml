@@ -1,6 +1,0 @@
-services:
-  - type: web
-    name: student-info-backend
-    env: node
-    buildCommand: cd backend && npm install
-    startCommand: cd backend && node server.js
